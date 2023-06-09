@@ -1,0 +1,39 @@
+syntax on
+set tabstop=4
+set expandtab
+set number
+set wrap
+set encoding=utf-8
+set showmatch
+set visualbell
+
+set autoindent
+set smartindent
+set shiftwidth=4
+set softtabstop=4
+
+set incsearch
+set hlsearch
+
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType yml setlocal ts=2 sts=2 sw=2 expandtab
+
+inoremap CC <Esc>C
+inoremap SS <Esc>S
+inoremap DD <Esc>dd
+inoremap UU <Esc>u
+
+set rtp+=/usr/local/opt/fzf
+
+let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
+if empty(glob(data_dir . '/autoload/plug.vim'))
+  silent execute '!curl -fLo '.data_dir.'/autoload/plug.vim --create-dirs  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin('~/.vim/plugged')
+Plug 'JuliaEditorSupport/julia-vim'
+Plug 'https://github.com/github/copilot.vim'
+Plug 'bohlender/vim-smt2'
+Plug 'brentyi/isort.vim'
+call plug#end()

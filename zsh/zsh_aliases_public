@@ -1,0 +1,60 @@
+#Convenience
+
+alias mv="mv -iv"
+alias cp="cp -riv"
+alias mkdir="mkdir -vp"
+alias dc="cd"
+alias ipy='iPython'
+alias lt='du -sh * | sort -h'
+alias left='ls -t -1'
+alias count='find . -type f | wc -l'
+alias tcn='mv --force -t ~/.local/share/Trash '
+alias ls='gls -F --group-directories-first --color=auto'
+alias phpserver='php -S localhost:8000'
+alias please='sudo $(fc -ln -1)'
+alias s2u="rename 's/\s/_/g' ./*.*"
+alias cpv='rsync -ah --info=progress2'
+alias cg='cd `git rev-parse --show-toplevel`'
+alias mnt='mount | grep -E ^/dev | column -t'
+alias untar='tar -zxvf'
+alias sha='shasum -a 256'
+alias ping='ping -c 5'
+alias ipe='curl ipinfo.io/ip'
+alias ipi='ipconfig getifaddr en0'
+alias ll='ls -la'
+alias gs='git status'
+alias gb='git branch'
+alias gc='git commit'
+alias gp='git push'
+alias '?'='duckduckgo'
+alias 'hi?'='ping -q -W 5 -c 5 github.com'
+alias goog='ping -q -W 5 -c 5 google.com'
+alias pipremove="pip uninstall -y -r <(pip freeze)"
+alias pipreinstall="pip uninstall -y -r <(pip freeze) && pip install -r requirements.txt"
+alias nv="nvidia-smi"
+alias sbp='source ~/.bash_profile && echo Reloaded'
+alias nbforward='jupyter lab --port=8893'
+
+#Functions
+
+urlencode ()
+{
+    local args="$@"
+    jq -nr --arg v "$args" '$v|@uri';
+}
+
+duckduckgo ()
+{
+    w3m "https://lite.duckduckgo.com/lite/?q=$(urlencode "$@")"
+}
+
+ib ()
+{
+    isort --profile black "$1" && black "$_";
+}
+
+space() { df -Ph . | tail -1 | awk '{print $4}'; }
+
+tardir() { tar -czf "${1%/}".tar.gz "$1" ; }
+
+mkcd() { mkdir "$1" && cd "$1"; }

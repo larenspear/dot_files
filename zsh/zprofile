@@ -1,0 +1,9 @@
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
+source ./zsh_aliases_public
+source ./zsh_aliases_private
+
+#Conda
+export PATH=/usr/local/anaconda3/bin:$PATH
+
+
