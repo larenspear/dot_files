@@ -1,4 +1,4 @@
-!/usr/bin/env python3x
+#!/usr/bin/env python3x
 
 import os
 import platform
