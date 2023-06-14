@@ -3,4 +3,6 @@ source /opt/homebrew/opt/antidote/share/antidote/antidote.zsh #Uncomment for Mac
 
 antidote load
 
+PS1='%m %~%# '
+
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
