@@ -1,5 +1,5 @@
-source /opt/homebrew/opt/antidote/share/antidote/antidote.zsh #Uncomment for Mac Homebrew
-#source ${ZDOTDIR:-~}/.antidote/antidote.zsh #Uncomment for Linux
+source ${ZDOTDIR:-~}/.antidote/antidote.zsh #Uncomment for Linux
+#source /opt/homebrew/opt/antidote/share/antidote/antidote.zsh #Uncomment for Mac Homebrew
 
 antidote load
 
