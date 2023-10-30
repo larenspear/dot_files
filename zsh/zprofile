@@ -1,9 +1,219 @@
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-source ./zsh_aliases_public
-source ./zsh_aliases_private
+export CPATH='/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/include:/opt/local/include'
+export LIBRARY_PATH='/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk/usr/lib:/opt/local/lib'
+export TERMINFO=/usr/share/terminfo
+
+export LDFLAGS="-L/opt/homebrew/lib"
+export CPPFLAGS="-I/opt/homebrew/include"
+
+export s1='larenspear@csce-caverlee-s1.engr.tamu.edu'
+export WORK="$HOME/Work"
+
+#System
+alias mv="mv -iv"
+alias cp="cp -riv"
+alias mkdir="mkdir -vp"
+alias rm="rm -vI --preserve-root"
+
+#INTEL
+
+alias intel='. /opt/intel/oneapi/setvars.sh'
+
+#Mac GCC
+alias gcc="gcc-13"
+alias g++="g++-13"
+
+#Python
+
+alias pip='pip3'
+alias python='python3'
+alias ipy='iPython'
+
+#Old SSH
+alias frilogin='ssh -YC lcs2496@fri.oden.utexas.edu'
+alias lonestar='ssh -YC lspear@ls5.tacc.utexas.edu'
+alias stampede2='ssh -YC lspear@stampede2.tacc.utexas.edu'
+alias isp='ssh -YC lspear@isp.tacc.utexas.edu'
+alias frontera='ssh -l lspear frontera.tacc.utexas.edu'
+
+#SSH
+
+alias hprc='ssh larenspear@terra.tamu.edu'
+alias cav='ssh larenspear@csce-caverlee-s1.engr.tamu.edu'
+alias tamulinux='ssh larenspear@linux.cse.tamu.edu'
+alias shad='ssh-add ~/.ssh/id_rsa'
+
+#Convenience
+
+alias lt='du -sh * | sort -h'
+alias left='ls -t -1'
+alias count='find . -type f | wc -l'
+alias tcn='mv --force -t ~/.local/share/Trash '
+alias bashreload='source ~/.bash_profile && echo Bash config reloaded'
+alias ls='gls -F --group-directories-first --color=auto'
+alias phpserver='php -S localhost:8000'
+alias please='sudo $(fc -ln -1)'
+alias s2u="rename 's/\s/_/g' ./*.*"
+alias cpv='rsync -ah --info=progress2'
+alias cg='cd `git rev-parse --show-toplevel`'
+alias mnt='mount | grep -E ^/dev | column -t'
+alias untar='tar -zxvf'
+alias sha='shasum -a 256'
+alias ping='ping -c 5'
+alias ipe='curl ipinfo.io/ip'
+alias ipi='ipconfig getifaddr en0'
+alias ll='ls -la'
+alias gs='git status'
+alias gb='git branch'
+alias gc='git commit'
+alias gp='git push'
+alias '?'='duckduckgo'
+alias 'hi?'='ping -q -W 5 -c 5 github.com'
+alias goog='ping -q -W 5 -c 5 google.com'
+alias tp='pass ls -c Academic/GradSchools/TAMU'
+alias rstudio="open -a 'RStudio'"
+alias c='clear'
+alias ..='cd ..'
+alias ...='cd ../../../'
+alias ....='cd ../../../../'
+alias .....='cd ../../../../'
+alias .4='cd ../../../../'
+alias .5='cd ../../../../..'
+alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
+alias ytmp3='youtube-dl --extract-audio --audio-format mp3 '
+alias sitecopy='wget -k -K -E -r -l 10 -p -N -F -nH '
+alias fuck='sudo !!'
+alias falcon='ssh larenspear@falcon.engr.tamu.edu'
+alias storm="ssh larenspear@stormtrooper06.engr.tamu.edu"
+alias wg="wordgrinder"
+alias loc="git ls-files | xargs wc -l"
+alias zshedit="vim ~/.zshrc"
+alias plusx="chmod +x"
+alias ducks= "du -cks * $(ls -A)| sort -rn | head -n 11"
+alias nuke="killall -9"
+alias :q="echo You are not currently in Vim"
+alias :wq="echo You are not currently in Vim"
+alias cdh="cd $HOME"
+alias cdw="cd $WORK"
+
+#Functions
+
+function histsearch() { fc -lim "*$@*" 1 }
+
+function nbforward() {
+  local_port=$1
+  remote_port=$2
+  remote_host=$3
+
+  if [ -z "$local_port" ] || [ -z "$remote_port" ] || [ -z "$remote_host" ]; then
+    echo "Usage: nbforward <local_port> <remote_port> <remote_host>"
+    return 1
+  fi
+
+  ssh -N -f -L localhost:${local_port}:localhost:${remote_port} $remote_host
+}
+
+
+function acp() {
+git add .
+git commit -m "$1"
+git push
+}
+
+function extract () {
+  if [ -f $1 ] ; then
+    case $1 in
+      *.tar.bz2)  tar xjf $1    ;;
+      *.tar.gz) tar xzf $1    ;;
+      *.bz2)    bunzip2 $1    ;;
+      *.rar)    rar x $1    ;;
+      *.gz)   gunzip $1   ;;
+      *.tar)    tar xf $1   ;;
+      *.tbz2)   tar xjf $1    ;;
+      *.tgz)    tar xzf $1    ;;
+      *.zip)    unzip $1    ;;
+      *.Z)    uncompress $1 ;;
+      *)      echo "'$1' cannot be extracted via extract()" ;;
+    esac
+  else
+    echo "'$1' is not a valid file"
+  fi
+}
+
+function cdf() {
+    target=`osascript -e 'tell application "Finder" to if (count of Finder windows) > 0 then get POSIX path of (target of front Finder window as text)'`
+    if [ "$target" != "" ]; then
+        cd "$target"; pwd
+    else
+        echo 'No Finder window found' >&2
+    fi
+}
+
+function urlencode ()
+{
+  local args="$@"
+  jq -nr --arg v "$args" '$v|@uri'; 
+}
+
+function duckduckgo()
+{
+  w3m "https://lite.duckduckgo.com/lite/?q=$(urlencode "$@")"
+}
+
+function ib ()
+{
+    isort --profile black "$1" && black "$_";
+}
+
+function euler()
+{
+    clang++ -std=c++17 -lgmp -lgmpxx $CPPFLAGS $LDFLAGS "$1" && ./a.out
+}
+
+function compile120()
+{
+    g++ -std=c++17 -Wall -Wextra -Weffc++ -pedantic-errors -fsanitize=address,undefined -g "$1" && ./a.out
+}
+
+function buildcpp(){
+    if [ $# -eq 0 ]
+    then
+        echo "[!] Please supply a filename to build"
+        return
+    fi
+
+    filename=$1
+    echo "[*] Building $filename"
+
+    filenameNoExtension="${filename%.*}"
+    /usr/bin/g++ -g -std=c++17 -Wall -Wextra -pedantic-errors -Weffc++ -Wno-unused-parameter -Wshadow-local -fsanitize=undefined,address -o $filenameNoExtension $filename 
+
+    echo "[*] Done building $filename"
+    echo "[*] Output at $filenameNoExtension"
+}
+
+#VPN
+
+alias tv='sudo openconnect --user=larenspear connect.tamu.edu'
+
+#Random
+
+alias codeforces='networksetup -setdnsservers Wi-Fi 8.8.8.8'
 
 #Conda
 export PATH=/usr/local/anaconda3/bin:$PATH
 
+# Setting PATH for Python 3.10
+# The original version is saved in .zprofile.pysave
+PATH="/Library/Frameworks/Python.framework/Versions/3.10/bin:${PATH}"
 
+# Added by Toolbox App
+export PATH="$PATH:/usr/local/bin"
+export LIWC_CLI=/Applications/LIWC-22.app/Contents/MacOS
+export PATH=$PATH:$LIWC_CLI
+
+export PATH="$PATH:$HOME/.local/bin"
+
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+export PATH="/usr/local/opt/ruby/bin:$PATH"
