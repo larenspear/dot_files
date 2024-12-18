@@ -15,15 +15,17 @@ set softtabstop=4
 set incsearch
 set hlsearch
 
+set t_Co=256
+
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 autocmd FileType yml setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType cpp setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2
+autocmd FileType cc setlocal expandtab shiftwidth=2 softtabstop=2 tabstop=2
 
-inoremap CC <Esc>C
-inoremap SS <Esc>S
-inoremap DD <Esc>dd
-inoremap UU <Esc>u
-
-set rtp+=/usr/local/opt/fzf
+autocmd BufRead,BufNewFile *.C set filetype=cpp
+autocmd BufRead,BufNewFile storage.conf set filetype=toml
+autocmd BufRead,BufNewFile containers.conf set filetype=toml
+autocmd BufRead,BufNewFile registries.conf set filetype=toml
 
 let data_dir = has('nvim') ? stdpath('data') . '/site' : '~/.vim'
 if empty(glob(data_dir . '/autoload/plug.vim'))
@@ -33,7 +35,18 @@ endif
 
 call plug#begin('~/.vim/plugged')
 Plug 'JuliaEditorSupport/julia-vim'
-Plug 'https://github.com/github/copilot.vim'
-Plug 'bohlender/vim-smt2'
-Plug 'brentyi/isort.vim'
+Plug 'tpope/vim-surround'
+Plug 'terryma/vim-smooth-scroll'
+Plug 'ap/vim-css-color'
+Plug 'mattn/emmet-vim'
+Plug 'mhinz/vim-startify'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'romainl/vim-cool'
+Plug 'tpope/vim-endwise'
+Plug 'rstacruz/vim-closer'
+Plug 'junegunn/rainbow_parentheses.vim'
+Plug 'junegunn/vim-easy-align'
+Plug 'machakann/vim-highlightedyank'
+Plug 'ntpeters/vim-better-whitespace'
+Plug 'cespare/vim-toml'
 call plug#end()

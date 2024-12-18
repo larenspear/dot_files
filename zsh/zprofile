@@ -9,6 +9,7 @@ export CPPFLAGS="-I/opt/homebrew/include"
 
 export s1='larenspear@csce-caverlee-s1.engr.tamu.edu'
 export WORK="$HOME/Work"
+export CUDA_DEVICE_ORDER=PCI_BUS_ID
 
 #System
 alias mv="mv -iv"
@@ -96,6 +97,10 @@ alias :q="echo You are not currently in Vim"
 alias :wq="echo You are not currently in Vim"
 alias cdh="cd $HOME"
 alias cdw="cd $WORK"
+alias nv="nvidia-smi"
+alias pipremove="pip uninstall -y -r <(pip freeze)"
+alias pipreinstall="pip uninstall -y -r <(pip freeze) && pip install -r requirements.txt"
+
 
 #Functions
 
@@ -113,6 +118,13 @@ function nbforward() {
 
   ssh -N -f -L localhost:${local_port}:localhost:${remote_port} $remote_host
 }
+
+function space() { df -Ph . | tail -1 | awk '{print $4}'; }
+
+function tardir() { tar -czf "${1%/}".tar.gz "$1" ; }
+
+function mkcd() { mkdir "$1" && cd "$1"; }
+
 
 
 function acp() {
