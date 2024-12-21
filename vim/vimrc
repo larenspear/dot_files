@@ -11,9 +11,24 @@ set autoindent
 set smartindent
 set shiftwidth=4
 set softtabstop=4
-
+set nocompatible
+set clipboard=unnamed
+set wildmenu
+set esckeys
+set backspace=indent,eol,start
+set ttyfast
+set gdefault
+set binary
+set noeol
 set incsearch
 set hlsearch
+set cursorline
+set lcs=tab:▸\ ,trail:·,eol:¬,nbsp:_
+set list
+set nostartofline
+set showmode
+set title
+set showcmd
 
 set t_Co=256
 
