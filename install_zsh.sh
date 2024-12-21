@@ -1,5 +1,8 @@
 #!/bin/bash
 
+##December 2024 edit - why do this instead of loading modules? Great question.
+##I used this on my university cluster to get zsh because I was desperate.
+
 # zsh will not install without ncurses. If the machine doesn't have this library, it will need to be installed first.
 export CXXFLAGS=" -fPIC" CFLAGS=" -fPIC" CPPFLAGS="-I${HOME}/include" LDFLAGS="-L${HOME}/lib"
 wget https://ftp.gnu.org/pub/gnu/ncurses/ncurses-6.2.tar.gz
